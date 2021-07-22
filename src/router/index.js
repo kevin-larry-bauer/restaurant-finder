@@ -14,7 +14,8 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
-  routes
+  routes,
+  base: process.env.NODE_ENV === "production" ? "/restaurant-finder/" : "/"
 })
 
 export default router
