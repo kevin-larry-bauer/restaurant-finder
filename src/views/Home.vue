@@ -142,7 +142,6 @@ export default {
             })
           }
           days = newDays
-          console.log(newDays)
         }
         results = results.concat(days);
       }

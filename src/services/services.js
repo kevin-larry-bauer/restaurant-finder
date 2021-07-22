@@ -1,7 +1,7 @@
 import store from '../store/index'
 
 export const ApiUrl = (endPoint) => {
-    let url ='/' 
+    let url ='' 
     if(endPoint) url = url + endPoint
 
     return url
