@@ -23,7 +23,12 @@ export default {
   methods: {
     checkIfAvailable(dayToCheck, timeToCheck, availableTime) {
       let dt = new Date(dayToCheck + " " + timeToCheck);
-      let dayOfWeek = this.daysOfWeek[dt.getDay() - 1];
+      
+      // find the day of the week
+      let dayIndex = dt.getDay();
+      if (dayIndex == 0) // wrap around for Sunday
+        dayIndex = 7;
+      let dayOfWeek = this.daysOfWeek[dayIndex - 1];
 
       let startDate = new Date(dayToCheck + " " + availableTime.startTime);
       let endDate = new Date(dayToCheck + " " + availableTime.endTime);
@@ -101,10 +106,11 @@ export default {
         let endTime = time + " " + ampm;
 
         // since the time picker only allows picking at the minute level
-        // we can consider 11:59 pm the latest possible time to check
+        // we can consider 11:59 pm the latest possible time to check.
+        // Since 
         // if the end time is later than 12 am we split it in two below
         if (endTime == "12:00 am")
-          endTime = "11:59 pm";
+          endTime = "11:59:59 pm";
 
         // check if end time is before start time, which would mean
         // we've wrapped around to the next day
@@ -121,7 +127,7 @@ export default {
           }
         } else {
           // if the end time is in the am and it's less than the start time split it in two
-          let newEndTime = '11:59 pm'
+          let newEndTime = '11:59:59 pm'
           let newStartTime = '12:00 am'
           let newDays = []
           for (let i = 0; i < days.length; i++) {
